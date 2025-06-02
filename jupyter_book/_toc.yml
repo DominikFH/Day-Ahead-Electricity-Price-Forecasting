@@ -1,0 +1,17 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: 0. Einleitung
+chapters:
+- file: 1. Deskriptive Analyse
+  sections:
+  - file: Features
+- file: 2. Ueberleitung
+  sections:
+  - file: 2.1 Ex_Post
+  - file: 2.2 Ex_Post_tft
+  - file: 2.3 Ex_Ante
+  - file: 2.4 Ex_Ante_tft
+- file: 3. Einordnung
+- file: 4. Fazit

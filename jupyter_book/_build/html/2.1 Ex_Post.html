@@ -1,0 +1,610 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2.1 Kombiniertes Modell zur Ex Post Analyse &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2.1 Ex_Post';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2.2 Temporal Fusion Transformer Modell zur Ex Post Analyse" href="2.2%20Ex_Post_tft.html" />
+    <link rel="prev" title="2. Modelle" href="2.%20Ueberleitung.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="0.%20Einleitung.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="0.%20Einleitung.html">
+                    Ex Post Analyse und Ex Ante Prognose des Day-ahead-Strompreises mit Deep Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="1.%20Deskriptive%20Analyse.html">1. Deskriptive Analyse</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Features.html">1.1 Feature Engineering</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="2.%20Ueberleitung.html">2. Modelle</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.1 Kombiniertes Modell zur Ex Post Analyse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.2%20Ex_Post_tft.html">2.2 Temporal Fusion Transformer Modell zur Ex Post Analyse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.3%20Ex_Ante.html">2.3 Kombiniertes Modell zu Ex Ante Prognose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.4%20Ex_Ante_tft.html">2.4 Temporal Fusion Transformer Modell zur Ex Ante Prognose</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="3.%20Einordnung.html">3. Energiewirtschaftliche Einordnung</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.%20Fazit.html">4. Fazit und Motivation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F2.1 Ex_Post.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2.1 Ex_Post.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>2.1 Kombiniertes Modell zur Ex Post Analyse</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modellhypothese">Modellhypothese</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameteroptimierung">Hyperparameteroptimierung</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ergebnisse-des-besten-modells">Ergebnisse des besten Modells</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modellvalidierung-und-bewertung">Modellvalidierung und Bewertung</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="kombiniertes-modell-zur-ex-post-analyse">
+<h1>2.1 Kombiniertes Modell zur Ex Post Analyse<a class="headerlink" href="#kombiniertes-modell-zur-ex-post-analyse" title="Link to this heading">#</a></h1>
+<section id="modellhypothese">
+<h2>Modellhypothese<a class="headerlink" href="#modellhypothese" title="Link to this heading">#</a></h2>
+<p>Die Architektur des Modells wird aus den Features abgeleitet. Aufgrund der unterschiedlichen Datenreihen werden vier Inputs gewählt.</p>
+<p>Der erste Input beinhaltet die Brennstoffpreise in Ergänzung zu den zeitpunktgebundenen Informationen (Stunde, Wochentag, Monat, Tag des Jahres). Für die Erkennung wiederkehrender Muster werden mehrere CNN-Layer verwendet. Die Anzahl der Layer hat sich aus Probeläufen ergeben. Um eventuelle langfristige Abhängigkeiten zu berücksichtigen, folgt ein LSTM-Layer auf den Pooling-Layer, der die größten Auffälligkeiten der vorangehenden Verarbeitung übernimmt und weitergibt.</p>
+<p>Der zweite Input beinhaltet marktbasierte sowie durch Engineering erarbeitete Features. Auch diese Features weisen eine Periodizität auf. Die gemeinsame Verarbeitung mit dem ersten Input führt jedoch zu schlechteren Ergebnissen. Daher wird eine separate Verarbeitung gewählt. Da die Eigenschaften der Daten des zweiten Inputs denen des ersten Inputs ähneln, werden die gleichen Layer zur Verarbeitung verwendet.</p>
+<p>Der dritte Input umfasst die Erzeugerdatenreihen. Auch hier haben CNN-Layer zu einer Verbesserung der Prognose geführt, da sie die wiederkehrenden Muster innerhalb eines Tages erkennen. Anschließend werden die Daten in Dense-Layern weiterverarbeitet.</p>
+<p>Der vierte Input enthält die Feiertage als statische Daten. Diese werden mit einem Dense-Layer verarbeitet.</p>
+<p>Die aus den Inputs verarbeiteten Daten werden in einem Concatenate-Layer zusammengeführt. Anschließend erfolgt eine Feature-Extraktion in einer vorletzten Dense-Schicht, die die Daten an die letzte Schicht übergibt, welche den Output erzeugt.
+Abbildung 14 zeigt die Modellarchitektur.</p>
+<p><img alt="Modellarchitektur des Ex Post Modells" src="_images/1.1_architektur.png" />
+<em>Abb. 14: Modellarchitektur des Ex Post Modells.</em></p>
+</section>
+<section id="hyperparameteroptimierung">
+<h2>Hyperparameteroptimierung<a class="headerlink" href="#hyperparameteroptimierung" title="Link to this heading">#</a></h2>
+<p>Für das Modell werden folgende Hyperparameter optimiert.</p>
+<p><img alt="Hyperparameteroptimierung des Ex Post Modells" src="_images/1_Hyperparameter.png" />
+<em>Abb. 15: Hyperparameteroptimierung des Ex Post Modells.</em></p>
+<p>Die Ergebnisse der Optimierung zeigen eine deutliche Tendenz der Modelle mit der höheren Lernrate zu Overfitten.</p>
+<p><img alt="Ergebnisse der Hyperparameteroptimierung" src="_images/Tensorboard_1.1.png" />
+<em>Abb. 16: Ergebnisse der Hyperparameteroptimierung.</em></p>
+<p>Der Trainingsfehler sinkt sehr stark, während
+die Validierung stark schwingt, oder in der Qualität abnimmt. Exemplarisch ist das Modell mit dem geringsten Validation-Loss beschrieben von 6.1E-2.</p>
+<p><img alt="Parameter des exemplarischen Modells" src="_images/1.1_Hyperparameter.png" />
+<em>Abb. 17: Parameter des exemplarischen Modells.</em></p>
+<p><img alt="Verhalten der Modelle mit höherer Lernrate" src="_images/Grafen_Tensor_1.1.png" />
+<em>Abb. 18: Verhalten der Modelle mit höherer Lernrate.</em></p>
+<p>Dem entgegen verhalten sich die Modelle mit niedriger Lernrate (1E-6). Aufgrund der niedrigen Lernrate sind die Validierungsfehler noch höher. Die Tendenz
+zeigt in der Entwicklung weiter deutlich runter.</p>
+<p><img alt="Verhalten der Modelle mit niedrigerer Lernrate" src="_images/grafen_Tensor_1.2.png" />
+<em>Abb. 19: Verhalten der Modelle mit niedrigerer Lernrate.</em></p>
+<p>Aufgrund der Tendenz des letzten Modells und der ungeeigneten höheren Lernrate wird für folgende Kombination der Hyperparameter entschieden.</p>
+<p><img alt="Parameter des gewählten Modells" src="_images/1.2_Hyperparameter.png" />
+<em>Abb. 20: Parameter des gewählten Modells.</em></p>
+</section>
+<section id="ergebnisse-des-besten-modells">
+<h2>Ergebnisse des besten Modells<a class="headerlink" href="#ergebnisse-des-besten-modells" title="Link to this heading">#</a></h2>
+<p>Mit den optimierten Hyperparametern liefert das Modell folgende Ergebnisse bei einem Training über 200 Epochen und einer patience von 50. Die batch_size ist 1680.</p>
+<p><img alt="Verlauf der Fehler" src="_images/1.1_loss.png" />
+<em>Abb. 21: Verlauf der Fehler des besten Modells.</em></p>
+<p><img alt="Prognosen der Training, Validierung und Test-Daten." src="_images/1.1_ergebnis.png" />
+<em>Abb. 22: Prognosen der Training, Validierung und Test-Daten.</em></p>
+<p><img alt="Ergebnisse der Training, Validierung und Test-Daten." src="_images/1.1_Ergebnistabelle.png" />
+<em>Abb. 23: Ergebnisse der Training, Validierung und Test-Daten.</em></p>
+</section>
+<section id="modellvalidierung-und-bewertung">
+<h2>Modellvalidierung und Bewertung<a class="headerlink" href="#modellvalidierung-und-bewertung" title="Link to this heading">#</a></h2>
+<p>Zur Prävention von Overfitting wurde in einer Verarbeitungslinie ein Dropout Layer eingebaut. Bei mehr Dropout Layern wurde
+das Preisniveau bei den Trainingsergebnissen dauerhaft unterschätzt. Der Verlauf der Fehlerkurven deutet darauf hin, dass die Maßnahme ausreicht.
+Die Trainingsergebnisse sehen vom Verlauf sehr gut aus. Der Preis kann dauerhaft präzise rekonstruiert werden. Lediglich die starken Preisspitzen werden
+unterschätzt.</p>
+<p>Die Validierungsprognosen nehmen entsprechend des Loss und MAE in der Qualität ab. In diesem Fall werden die Spitzen
+überschätzt. Die Täler werden überschätzt. Das Modell liefert ein ungefähres Preisniveau, aber keine präzisen Prognosen.</p>
+<p>Die Abnahme der Prognosequalität hält bei den Prognosen der Testdaten an. Die Prognosen
+liefern einen gemittelten Wert. Dieser liegt in der Tendenz leicht über dem tatsächlichen
+Preisniveau.</p>
+<p>Von den Prognosen des Ex Post Modell haben wir uns mehr erhofft. Es liefert ein
+ungefähres Preisniveau. Es ist dem Modell jedoch nicht gelungen den Preis zu rekonstruieren.</p>
+<p>Im Folgenden werden mögliche Ursachen genannt.</p>
+<p><strong>1. Features</strong></p>
+<p>Einige der Features beinhalten durch das Engineering identische Faktoren. Möglicherweise
+ist eine Redundanz gegeben, welche die Qualität der Generalisierung negativ beeinflusst. Eine
+Überprüfung auf Redundanz und die Reduktion redundanter Features wäre eine geeignete Maßnahme. Darüber hinaus
+scheint ein Einflussfaktor für die Preisspitzen nicht eindeutig durch die Kombination der Features gegeben zu sein.
+Hier wäre eine weitere Feature Analyse und Anpassung sinnvoll</p>
+<p><strong>2. Modellarchitektur</strong></p>
+<p>Die Modellarchitektur ist komplex. Aufgrund des hohen Rechenaufwands war es nicht möglich alle
+Kombinationen von Hyperparametern zu optimieren. Einzelne Durchläufe als Qualitätsvergleich haben beispielsweise zu den
+Kernel_size und filters bei den CNN-Layern geführt. Hier gibt es sehr wahrscheinlich Kombinationen mit besseren
+Ergebnissen, die mit passender Hardware und Zeit gefunden werden könnten.
+Darüber hinaus gibt es mit Sicherheit Modellarchitekturen, die besser geeignet sind. Trotz der Komplexität
+muss diese Architektur nicht die Beste sein.</p>
+<p><strong>3. Inputs</strong></p>
+<p>Die Auswahl der Features für die Inputs ist systematisch, wie zu Beginn des Kapitels beschrieben,
+erfolgt. Möglicherweise gibt es auch hier Kombinationen, welche eine bessere Generalisierung ermöglichen.</p>
+<p><strong>4. Hyperparameter</strong></p>
+<p>Wie bereits erwähnt, wurden nicht alle Hyperparameterkombinationen getestet. Bei den gewählten Hyperparametern
+existieren noch endlos weitere Einstellungen.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2.%20Ueberleitung.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">2. Modelle</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2.2%20Ex_Post_tft.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">2.2 Temporal Fusion Transformer Modell zur Ex Post Analyse</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modellhypothese">Modellhypothese</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameteroptimierung">Hyperparameteroptimierung</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ergebnisse-des-besten-modells">Ergebnisse des besten Modells</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modellvalidierung-und-bewertung">Modellvalidierung und Bewertung</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

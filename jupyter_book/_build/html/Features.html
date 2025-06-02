@@ -1,0 +1,1649 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1.1 Feature Engineering &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Features';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Modelle" href="2.%20Ueberleitung.html" />
+    <link rel="prev" title="1. Deskriptive Analyse" href="1.%20Deskriptive%20Analyse.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="0.%20Einleitung.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="0.%20Einleitung.html">
+                    Ex Post Analyse und Ex Ante Prognose des Day-ahead-Strompreises mit Deep Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="1.%20Deskriptive%20Analyse.html">1. Deskriptive Analyse</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.1 Feature Engineering</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="2.%20Ueberleitung.html">2. Modelle</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="2.1%20Ex_Post.html">2.1 Kombiniertes Modell zur Ex Post Analyse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.2%20Ex_Post_tft.html">2.2 Temporal Fusion Transformer Modell zur Ex Post Analyse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.3%20Ex_Ante.html">2.3 Kombiniertes Modell zu Ex Ante Prognose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.4%20Ex_Ante_tft.html">2.4 Temporal Fusion Transformer Modell zur Ex Ante Prognose</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="3.%20Einordnung.html">3. Energiewirtschaftliche Einordnung</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.%20Fazit.html">4. Fazit und Motivation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FFeatures.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Features.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>1.1 Feature Engineering</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="feature-engineering">
+<h1>1.1 Feature Engineering<a class="headerlink" href="#feature-engineering" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">holidays</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+
+<span class="c1">#Daten einladen</span>
+
+<span class="n">data_Preise</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;Daten_Preise.xlsx&quot;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;Tabelle1&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">data_Preise</span> <span class="o">=</span> <span class="n">data_Preise</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span>
+<span class="n">data_Preise</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data_Preise</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+
+<span class="n">data_Sonstige</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;Daten_sonstige_h.xlsx&quot;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;Tabelle1&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">data_Sonstige</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data_Sonstige</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.%m.%Y %H:%M&quot;</span><span class="p">)</span>
+
+<span class="c1"># Index in ein einheitliches Format übertragne</span>
+<span class="n">data_Preise</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data_Preise</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+<span class="n">index1</span> <span class="o">=</span> <span class="n">data_Preise</span><span class="o">.</span><span class="n">index</span>
+<span class="n">data_Sonstige</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data_Sonstige</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+<span class="n">index2</span> <span class="o">=</span> <span class="n">data_Sonstige</span><span class="o">.</span><span class="n">index</span>
+
+<span class="c1">#Daten in einem DataFrame zusammenfügen</span>
+<span class="n">data_roh</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data_Sonstige</span><span class="p">,</span> <span class="n">data_Preise</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<span class="n">data_roh</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data_roh</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="n">df_cleaned</span> <span class="o">=</span> <span class="n">data_roh</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">12</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">data_Preise</span> <span class="o">=</span> <span class="n">data_Preise</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">data_Preise</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data_Preise</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">12</span> <span class="n">data_Sonstige</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;Daten_sonstige_h.xlsx&quot;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;Tabelle1&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="n">data_Sonstige</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data_Sonstige</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.%m.%Y %H:%M&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="c1"># Index in ein einheitliches Format übertragne</span>
+
+<span class="nn">File ~\mambaforge\envs\eda2\Lib\site-packages\pandas\io\excel\_base.py:508,</span> in <span class="ni">read_excel</span><span class="nt">(io, sheet_name, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skiprows, nrows, na_values, keep_default_na, na_filter, verbose, parse_dates, date_parser, date_format, thousands, decimal, comment, skipfooter, storage_options, dtype_backend, engine_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">502</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">503</span>         <span class="s2">&quot;Engine should not be specified when passing &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">504</span>         <span class="s2">&quot;an ExcelFile - ExcelFile already has the engine set&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">505</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">507</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">508</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">509</span>         <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheet_name</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">510</span>         <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">511</span>         <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">512</span>         <span class="n">index_col</span><span class="o">=</span><span class="n">index_col</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">513</span>         <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">514</span>         <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">515</span>         <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">516</span>         <span class="n">true_values</span><span class="o">=</span><span class="n">true_values</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">517</span>         <span class="n">false_values</span><span class="o">=</span><span class="n">false_values</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">518</span>         <span class="n">skiprows</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">519</span>         <span class="n">nrows</span><span class="o">=</span><span class="n">nrows</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">520</span>         <span class="n">na_values</span><span class="o">=</span><span class="n">na_values</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">521</span>         <span class="n">keep_default_na</span><span class="o">=</span><span class="n">keep_default_na</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">522</span>         <span class="n">na_filter</span><span class="o">=</span><span class="n">na_filter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">523</span>         <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">524</span>         <span class="n">parse_dates</span><span class="o">=</span><span class="n">parse_dates</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">525</span>         <span class="n">date_parser</span><span class="o">=</span><span class="n">date_parser</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">526</span>         <span class="n">date_format</span><span class="o">=</span><span class="n">date_format</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">527</span>         <span class="n">thousands</span><span class="o">=</span><span class="n">thousands</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">528</span>         <span class="n">decimal</span><span class="o">=</span><span class="n">decimal</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">529</span>         <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">530</span>         <span class="n">skipfooter</span><span class="o">=</span><span class="n">skipfooter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">531</span>         <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">532</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">533</span> <span class="k">finally</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">534</span>     <span class="c1"># make sure to close opened file handles</span>
+<span class="g g-Whitespace">    </span><span class="mi">535</span>     <span class="k">if</span> <span class="n">should_close</span><span class="p">:</span>
+
+<span class="nn">File ~\mambaforge\envs\eda2\Lib\site-packages\pandas\io\excel\_base.py:1616,</span> in <span class="ni">ExcelFile.parse</span><span class="nt">(self, sheet_name, header, names, index_col, usecols, converters, true_values, false_values, skiprows, nrows, na_values, parse_dates, date_parser, date_format, thousands, comment, skipfooter, dtype_backend, **kwds)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1576</span> <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1577</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1578</span>     <span class="n">sheet_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1596</span>     <span class="o">**</span><span class="n">kwds</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1597</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">]</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">]:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1598</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1599</span><span class="sd">     Parse specified sheet(s) into a DataFrame.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1600</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1614</span><span class="sd">     &gt;&gt;&gt; file.parse()  # doctest: +SKIP</span>
+<span class="g g-Whitespace">   </span><span class="mi">1615</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1616</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reader</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1617</span>         <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheet_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1618</span>         <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1619</span>         <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1620</span>         <span class="n">index_col</span><span class="o">=</span><span class="n">index_col</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1621</span>         <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1622</span>         <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1623</span>         <span class="n">true_values</span><span class="o">=</span><span class="n">true_values</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1624</span>         <span class="n">false_values</span><span class="o">=</span><span class="n">false_values</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1625</span>         <span class="n">skiprows</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1626</span>         <span class="n">nrows</span><span class="o">=</span><span class="n">nrows</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1627</span>         <span class="n">na_values</span><span class="o">=</span><span class="n">na_values</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1628</span>         <span class="n">parse_dates</span><span class="o">=</span><span class="n">parse_dates</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1629</span>         <span class="n">date_parser</span><span class="o">=</span><span class="n">date_parser</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1630</span>         <span class="n">date_format</span><span class="o">=</span><span class="n">date_format</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1631</span>         <span class="n">thousands</span><span class="o">=</span><span class="n">thousands</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1632</span>         <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1633</span>         <span class="n">skipfooter</span><span class="o">=</span><span class="n">skipfooter</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1634</span>         <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1635</span>         <span class="o">**</span><span class="n">kwds</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1636</span>     <span class="p">)</span>
+
+<span class="nn">File ~\mambaforge\envs\eda2\Lib\site-packages\pandas\io\excel\_base.py:778,</span> in <span class="ni">BaseExcelReader.parse</span><span class="nt">(self, sheet_name, header, names, index_col, usecols, dtype, true_values, false_values, skiprows, nrows, na_values, verbose, parse_dates, date_parser, date_format, thousands, decimal, comment, skipfooter, dtype_backend, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">775</span>     <span class="n">sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sheet_by_index</span><span class="p">(</span><span class="n">asheetname</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">777</span> <span class="n">file_rows_needed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_rows</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">index_col</span><span class="p">,</span> <span class="n">skiprows</span><span class="p">,</span> <span class="n">nrows</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">778</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sheet_data</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="n">file_rows_needed</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">779</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="s2">&quot;close&quot;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">780</span>     <span class="c1"># pyxlsb opens two TemporaryFiles</span>
+<span class="g g-Whitespace">    </span><span class="mi">781</span>     <span class="n">sheet</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nn">File ~\mambaforge\envs\eda2\Lib\site-packages\pandas\io\excel\_openpyxl.py:615,</span> in <span class="ni">OpenpyxlReader.get_sheet_data</span><span class="nt">(self, sheet, file_rows_needed)</span>
+<span class="g g-Whitespace">    </span><span class="mi">613</span> <span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Scalar</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">    </span><span class="mi">614</span> <span class="n">last_row_with_data</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="ne">--&gt; </span><span class="mi">615</span> <span class="k">for</span> <span class="n">row_number</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">rows</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">616</span>     <span class="n">converted_row</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_convert_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">617</span>     <span class="k">while</span> <span class="n">converted_row</span> <span class="ow">and</span> <span class="n">converted_row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">618</span>         <span class="c1"># trim trailing empty elements</span>
+
+<span class="nn">File ~\mambaforge\envs\eda2\Lib\site-packages\openpyxl\worksheet\_read_only.py:81,</span> in <span class="ni">ReadOnlyWorksheet._cells_by_row</span><span class="nt">(self, min_col, min_row, max_col, max_row, values_only)</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span> <span class="n">src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_source</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">78</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_strings</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span>                          <span class="n">data_only</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">data_only</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span>                          <span class="n">date_formats</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">_date_formats</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">81</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">():</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>     <span class="k">if</span> <span class="n">max_row</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="n">max_row</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span>         <span class="k">break</span>
+
+<span class="nn">File ~\mambaforge\envs\eda2\Lib\site-packages\openpyxl\worksheet\_reader.py:156,</span> in <span class="ni">parse</span><span class="nt">()</span>
+
+<span class="nn">File ~\mambaforge\envs\eda2\Lib\xml\etree\ElementTree.py:1238,</span> in <span class="ni">iterparse.&lt;locals&gt;.iterator</span><span class="nt">(source)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1236</span> <span class="k">yield from</span> <span class="n">pullparser</span><span class="o">.</span><span class="n">read_events</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1237</span> <span class="c1"># load event buffer</span>
+<span class="ne">-&gt; </span><span class="mi">1238</span> <span class="n">data</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">16</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1239</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1240</span>     <span class="k">break</span>
+
+<span class="nn">File ~\mambaforge\envs\eda2\Lib\zipfile\__init__.py:981,</span> in <span class="ni">ZipExtFile.read</span><span class="nt">(self, n)</span>
+<span class="g g-Whitespace">    </span><span class="mi">979</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="g g-Whitespace">    </span><span class="mi">980</span> <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eof</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">981</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read1</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">982</span>     <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">983</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_readbuffer</span> <span class="o">=</span> <span class="n">data</span>
+
+<span class="nn">File ~\mambaforge\envs\eda2\Lib\zipfile\__init__.py:1057,</span> in <span class="ni">ZipExtFile._read1</span><span class="nt">(self, n)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1055</span> <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compress_type</span> <span class="o">==</span> <span class="n">ZIP_DEFLATED</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1056</span>     <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MIN_READ_SIZE</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1057</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decompressor</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1058</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_eof</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_decompressor</span><span class="o">.</span><span class="n">eof</span> <span class="ow">or</span>
+<span class="g g-Whitespace">   </span><span class="mi">1059</span>                  <span class="bp">self</span><span class="o">.</span><span class="n">_compress_left</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">and</span>
+<span class="g g-Whitespace">   </span><span class="mi">1060</span>                  <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decompressor</span><span class="o">.</span><span class="n">unconsumed_tail</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1061</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eof</span><span class="p">:</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Ideen für Feature Engineering</span>
+
+<span class="c1">#Zeitliche Einflüsse</span>
+<span class="c1">#Tag des Jahres</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s2">&quot;Day-of-year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">dayofyear</span>
+<span class="c1">#Monat</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s2">&quot;Monat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span>
+<span class="c1"># Stunde des Tages</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s2">&quot;Stunde&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">hour</span>
+<span class="c1">#Feiertage</span>
+<span class="n">de_holidays</span> <span class="o">=</span> <span class="n">holidays</span><span class="o">.</span><span class="n">Germany</span><span class="p">(</span><span class="n">years</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">2022</span><span class="p">))</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Feiertag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">de_holidays</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+
+<span class="c1">#Berücksichtigung Ausgleichsenergie spez. Kosten </span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s2">&quot;Ausgleichsenergie [€]&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s2">&quot;Volumen (+) [MWh]&quot;</span><span class="p">]</span><span class="o">+</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s2">&quot;Volumen (-) [MWh]&quot;</span><span class="p">])</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s2">&quot;Preis [€/MWh]&quot;</span><span class="p">]</span> <span class="c1">#Überprüft nicht geeignet. Kein Zusammenhang mit großer Auswirkung erkennbar</span>
+
+
+<span class="c1">#Kraftwerke mit Preisen</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Summe_CO2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Braunkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span> <span class="mf">1.188</span> <span class="o">+</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Steinkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span> <span class="mf">0.95</span> <span class="o">+</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Erdgas [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.4</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Summe_Kohle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Braunkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.2398</span> <span class="o">+</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Steinkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.1228</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kraftwerke_CO2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Braunkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span> <span class="mf">1.188</span> <span class="o">+</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Steinkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span> <span class="mf">0.95</span> <span class="o">+</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Erdgas [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.4</span><span class="p">)</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;CO2 [€/t]&#39;</span><span class="p">]</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kraftwerke_Kohle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Braunkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.2398</span> <span class="o">+</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Steinkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.1228</span> <span class="p">)</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kohle [€/t]&#39;</span><span class="p">]</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kraftwerke_Gas&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Erdgas [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Gas [€/MWh]&#39;</span><span class="p">]</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kosten_Erdgas&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Erdgas [MWh]&#39;</span><span class="p">]</span><span class="o">*</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Gas [€/MWh]&#39;</span><span class="p">])</span><span class="o">+</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Erdgas [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.4</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;CO2 [€/t]&#39;</span><span class="p">])</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kosten_Braunkohle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Braunkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.2398</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kohle [€/t]&#39;</span><span class="p">])</span><span class="o">+</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Braunkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">1.188</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;CO2 [€/t]&#39;</span><span class="p">])</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kosten_Steinkohle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Steinkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.1228</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kohle [€/t]&#39;</span><span class="p">])</span><span class="o">+</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Steinkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.95</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;CO2 [€/t]&#39;</span><span class="p">])</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kraftwerke_Fossil&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kraftwerke_Gas&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kraftwerke_Kohle&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kraftwerke_CO2&#39;</span><span class="p">]</span>
+
+<span class="c1">#Quellen-CO2: </span>
+<span class="c1">#Braunkohle: hhttps://www.bund-nrw.de/braunkohle/hintergruende-und-publikationen/braunkohlenkraftwerke-contra-klimaschutz/</span>
+<span class="c1">#Steinkohle: https://www.brisant.de/braunkohle-umwelt-100.html</span>
+<span class="c1">#Erdgas: https://www.ise.fraunhofer.de/de/presse-und-medien/news/2019/33-prozent-weniger-co2-emissionen-durch-brennstoffwechsel-von-kohle-auf-gas.html</span>
+
+<span class="c1">#Quellen-Kohle:</span>
+<span class="c1">#Braunkohle: https://agrarplus.at/heizwerte-aequivalente.html</span>
+<span class="c1">#Steinkohle: https://www.unitjuggler.com/energy-umwandeln-von-MWh-nach-tSKE.html</span>
+
+
+<span class="c1"># Anteil Erneuerbarer</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Summe_Ern&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[[</span><span class="s1">&#39;Wind Offshore [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Wind Onshore [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Photovoltaik [MWh]&#39;</span><span class="p">,</span><span class="s1">&#39;Biomasse [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Sonstige Erneuerbare [MWh]&#39;</span><span class="p">,</span><span class="s1">&#39;Wasserkraft [MWh]&#39;</span><span class="p">,]]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Anteil Erneuerbarer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Summe_Ern&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Gesamt (Netzlast) [MWh]&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Anteil_PV&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Photovoltaik [MWh]&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Summe_Ern&#39;</span><span class="p">]</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Anteil_Offshore&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Wind Offshore [MWh]&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Summe_Ern&#39;</span><span class="p">]</span>
+
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Prognose_Summe_Ern&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[[</span><span class="s1">&#39;Prognose Wind Offshore [MWh] &#39;</span><span class="p">,</span> <span class="s1">&#39;Prognose Wind Onshore [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Prognose Photovoltaik [MWh]&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">prog_proz_ern</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Prognose_Summe_Ern&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39; Prognose Gesamt (Netzlast) [MWh]&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Prognose Anteil Erneuerbarer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prog_proz_ern</span>
+
+<span class="c1"># Überschuss Erzeugung</span>
+<span class="n">summe_erzeugung</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[[</span><span class="s1">&#39;Biomasse [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Wasserkraft [MWh]&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;Wind Offshore [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Wind Onshore [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Photovoltaik [MWh]&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;Sonstige Erneuerbare [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Kernenergie [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Braunkohle [MWh]&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;Steinkohle [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Erdgas [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Erzeugung Pumpspeicher [MWh]&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;Sonstige Konventionelle [MWh]&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Überschuss&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summe_erzeugung</span> <span class="o">-</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Gesamt (Netzlast) [MWh]&#39;</span><span class="p">]</span>
+
+
+<span class="c1"># Abweichung Prognose Residuallast</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Abweichung_Prognose_Residuallast&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Residuallast [MWh]&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Prognose Residuallast [MWh]&#39;</span><span class="p">])</span>
+
+
+<span class="c1">#mögliche Interaktionen zwischen Features</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Int_Gas&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Gas [€/MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Gesamt (Netzlast) [MWh]&#39;</span><span class="p">]</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Int_Gas_Resi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Gas [€/MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Residuallast [MWh]&#39;</span><span class="p">]</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Int_CO2_Erz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summe_erzeugung</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;CO2 [€/t]&#39;</span><span class="p">]</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Int_CO2_Kohle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Braunkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span> <span class="mf">1.188</span> <span class="o">+</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Steinkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span> <span class="mf">0.95</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;CO2 [€/t]&#39;</span><span class="p">]</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Int_Ern_Foss&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Anteil Erneuerbarer&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Erdgas [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Steinkohle [MWh]&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Braunkohle [MWh]&#39;</span><span class="p">]</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Int_Preise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kraftwerke_CO2&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kraftwerke_Kohle&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kraftwerke_Gas&#39;</span><span class="p">]</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Int_Pumpspeicher&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Pumpspeicher [MWh]&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Kraftwerke_Fossil&#39;</span><span class="p">]</span>
+
+<span class="c1"># Versuch Einbau der Merit-Order als Feature</span>
+<span class="n">merit_order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Wind Offshore [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Wind Onshore [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Photovoltaik [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Wasserkraft [MWh]&#39;</span><span class="p">,</span><span class="s1">&#39;Biomasse [MWh]&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Sonstige Erneuerbare [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Kernenergie [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Braunkohle [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Steinkohle [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Erdgas [MWh]&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Erzeugung Pumpspeicher [MWh]&#39;</span><span class="p">,</span> <span class="s1">&#39;Sonstige Konventionelle [MWh]&#39;</span><span class="p">]</span>
+
+<span class="n">df_order</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="n">merit_order</span><span class="p">]</span>
+<span class="n">df_cumsum</span> <span class="o">=</span> <span class="n">df_order</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">gesamtlast_serie</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;Gesamt (Netzlast) [MWh]&#39;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">finde_lastdeckung</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">gesamtlast</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">kraftwerk</span><span class="p">,</span> <span class="n">kum_erz</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">kum_erz</span> <span class="o">&gt;=</span> <span class="n">gesamtlast</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">kraftwerk</span><span class="p">,</span> <span class="n">kum_erz</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+<span class="c1">#df_cleaned[&#39;Deckendes Kraftwerk&#39;], df_cleaned[&#39;Erzeugung bei Deckung&#39;] = zip(*df_cumsum.apply(lambda row: finde_lastdeckung(row, gesamtlast_serie[row.name]), axis = 1))</span>
+<span class="c1">#print(df_cleaned[[&#39;Deckendes Kraftwerk&#39;, &#39;Erzeugung bei Deckung&#39;]])</span>
+
+<span class="c1">#Standardabweichung</span>
+<span class="c1">#df_cleaned[&#39;Std_Gas&#39;] = df_cleaned[&#39;Gas [€/MWh]&#39;].rolling(window=24).std()</span>
+<span class="c1">#df_cleaned[&#39;Std_Kohle&#39;] = df_cleaned[&#39;Kohle [€/t]&#39;].rolling(window=24).std()</span>
+<span class="c1">#df_cleaned[&#39;Std_CO2&#39;] = df_cleaned[&#39;CO2 [€/t]&#39;].rolling(window=24).std()</span>
+<span class="c1">#df_cleaned[&#39;Std_Erneuerbare_Tag&#39;] = df_cleaned[&#39;Summe_Ern&#39;].rolling(window=24).std()</span>
+<span class="c1">#df_cleaned[&#39;Std_Prognose&#39;] = df_cleaned[&#39;Abweichung_Prognose_Residuallast&#39;].rolling(window=24).std()</span>
+
+
+
+<span class="c1">#Gleitender Durchschnitt Preise</span>
+<span class="c1">#df_cleaned[&#39;Moving_Average_Gas&#39;] = df_cleaned[&#39;Gas [€/MWh]&#39;].rolling(window=2500).mean()</span>
+<span class="c1">#df_cleaned[&#39;Moving_Average_Kohle&#39;] = df_cleaned[&#39;Kohle [€/t]&#39;].rolling(window=2500).mean()</span>
+<span class="c1">#df_cleaned[&#39;Moving_Average_CO2&#39;] = df_cleaned[&#39;CO2 [€/t]&#39;].rolling(window=2500).mean()</span>
+
+<span class="n">df_cleaned</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Dominik\AppData\Local\Temp\ipykernel_13032\2105469522.py:12: FutureWarning: The behavior of &#39;isin&#39; with dtype=datetime64[ns] and castable values (e.g. strings) is deprecated. In a future version, these will not be considered matching by isin. Explicitly cast to the appropriate dtype before calling isin instead.
+  df_cleaned[&#39;Feiertag&#39;] = df_cleaned.index.isin(de_holidays).astype(int)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Wochentag</th>
+      <th>Prognose Wind Offshore [MWh]</th>
+      <th>Prognose Wind Onshore [MWh]</th>
+      <th>Prognose Photovoltaik [MWh]</th>
+      <th>Prognose Sonstige [MWh]</th>
+      <th>Prognose Gesamt (Netzlast) [MWh]</th>
+      <th>Prognose Residuallast [MWh]</th>
+      <th>Biomasse [MWh]</th>
+      <th>Wasserkraft [MWh]</th>
+      <th>Wind Offshore [MWh]</th>
+      <th>Wind Onshore [MWh]</th>
+      <th>Photovoltaik [MWh]</th>
+      <th>Sonstige Erneuerbare [MWh]</th>
+      <th>Kernenergie [MWh]</th>
+      <th>Braunkohle [MWh]</th>
+      <th>Steinkohle [MWh]</th>
+      <th>Erdgas [MWh]</th>
+      <th>Erzeugung Pumpspeicher [MWh]</th>
+      <th>Sonstige Konventionelle [MWh]</th>
+      <th>Gesamt (Netzlast) [MWh]</th>
+      <th>Residuallast [MWh]</th>
+      <th>Pumpspeicher [MWh]</th>
+      <th>Nettoexport [MWh]</th>
+      <th>Day-ahead Auktion (volumengewichtet) [€/MWh]</th>
+      <th>Volumen (+) [MWh]</th>
+      <th>Volumen (-) [MWh]</th>
+      <th>Preis [€/MWh]</th>
+      <th>Temperatur</th>
+      <th>Kohle [€/t]</th>
+      <th>Gas [€/MWh]</th>
+      <th>CO2 [€/t]</th>
+      <th>BIP</th>
+      <th>Verbraucherpreisindex</th>
+      <th>Day-of-year</th>
+      <th>Monat</th>
+      <th>Stunde</th>
+      <th>Feiertag</th>
+      <th>Ausgleichsenergie [€]</th>
+      <th>Summe_CO2</th>
+      <th>Summe_Kohle</th>
+      <th>Kraftwerke_CO2</th>
+      <th>Kraftwerke_Kohle</th>
+      <th>Kraftwerke_Gas</th>
+      <th>Kosten_Erdgas</th>
+      <th>Kosten_Braunkohle</th>
+      <th>Kosten_Steinkohle</th>
+      <th>Kraftwerke_Fossil</th>
+      <th>Summe_Ern</th>
+      <th>Anteil Erneuerbarer</th>
+      <th>Anteil_PV</th>
+      <th>Anteil_Offshore</th>
+      <th>Prognose_Summe_Ern</th>
+      <th>Prognose Anteil Erneuerbarer</th>
+      <th>Überschuss</th>
+      <th>Abweichung_Prognose_Residuallast</th>
+      <th>Int_Gas</th>
+      <th>Int_Gas_Resi</th>
+      <th>Int_CO2_Erz</th>
+      <th>Int_CO2_Kohle</th>
+      <th>Int_Ern_Foss</th>
+      <th>Int_Preise</th>
+      <th>Int_Pumpspeicher</th>
+    </tr>
+    <tr>
+      <th>ContractBegin</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2015-01-05 00:00:00</th>
+      <td>2</td>
+      <td>551.75</td>
+      <td>10009.75</td>
+      <td>0.0</td>
+      <td>47097.50</td>
+      <td>43176.00</td>
+      <td>32614.50</td>
+      <td>4064.00</td>
+      <td>1680.25</td>
+      <td>473.75</td>
+      <td>11847.25</td>
+      <td>0.00</td>
+      <td>132.25</td>
+      <td>10934.50</td>
+      <td>16041.75</td>
+      <td>2201.50</td>
+      <td>987.00</td>
+      <td>1334.25</td>
+      <td>5207.00</td>
+      <td>46668.00</td>
+      <td>34347.00</td>
+      <td>2429.25</td>
+      <td>9906.00</td>
+      <td>17.93</td>
+      <td>0</td>
+      <td>-844</td>
+      <td>-37.56</td>
+      <td>3.400</td>
+      <td>64.7</td>
+      <td>7.24</td>
+      <td>20.354</td>
+      <td>100.0</td>
+      <td>100.0</td>
+      <td>5</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>31700.64</td>
+      <td>21543.8240</td>
+      <td>4117.15585</td>
+      <td>4.385030e+05</td>
+      <td>2.663800e+05</td>
+      <td>7145.880</td>
+      <td>15181.6392</td>
+      <td>6.367871e+05</td>
+      <td>60060.134190</td>
+      <td>8.346990e+14</td>
+      <td>18197.50</td>
+      <td>38.993529</td>
+      <td>0.000000</td>
+      <td>0.026034</td>
+      <td>10561.50</td>
+      <td>24.461506</td>
+      <td>8235.50</td>
+      <td>1732.50</td>
+      <td>337876.32</td>
+      <td>248672.28</td>
+      <td>1.117506e+06</td>
+      <td>61626.463450</td>
+      <td>1.359190e+12</td>
+      <td>8.346990e+14</td>
+      <td>2.910331e-12</td>
+    </tr>
+    <tr>
+      <th>2015-01-05 01:00:00</th>
+      <td>2</td>
+      <td>547.75</td>
+      <td>10287.75</td>
+      <td>0.0</td>
+      <td>44789.50</td>
+      <td>41597.75</td>
+      <td>30762.25</td>
+      <td>4069.25</td>
+      <td>1676.50</td>
+      <td>464.75</td>
+      <td>11814.75</td>
+      <td>0.00</td>
+      <td>131.00</td>
+      <td>11055.00</td>
+      <td>15390.50</td>
+      <td>2163.25</td>
+      <td>961.25</td>
+      <td>1038.25</td>
+      <td>4743.25</td>
+      <td>44627.00</td>
+      <td>32347.50</td>
+      <td>2823.00</td>
+      <td>10138.00</td>
+      <td>15.17</td>
+      <td>0</td>
+      <td>-589</td>
+      <td>-15.97</td>
+      <td>3.150</td>
+      <td>64.7</td>
+      <td>7.24</td>
+      <td>20.354</td>
+      <td>100.0</td>
+      <td>100.0</td>
+      <td>5</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>9406.33</td>
+      <td>20723.5015</td>
+      <td>3956.28900</td>
+      <td>4.218061e+05</td>
+      <td>2.559719e+05</td>
+      <td>6959.450</td>
+      <td>14785.5630</td>
+      <td>6.109353e+05</td>
+      <td>59016.618345</td>
+      <td>7.514154e+14</td>
+      <td>18156.25</td>
+      <td>40.684451</td>
+      <td>0.000000</td>
+      <td>0.025597</td>
+      <td>10835.50</td>
+      <td>26.048284</td>
+      <td>8880.75</td>
+      <td>1585.25</td>
+      <td>323099.48</td>
+      <td>234195.90</td>
+      <td>1.089097e+06</td>
+      <td>60113.164975</td>
+      <td>1.302040e+12</td>
+      <td>7.514154e+14</td>
+      <td>3.756910e-12</td>
+    </tr>
+    <tr>
+      <th>2015-01-05 02:00:00</th>
+      <td>2</td>
+      <td>542.50</td>
+      <td>10418.50</td>
+      <td>0.0</td>
+      <td>43457.00</td>
+      <td>40421.75</td>
+      <td>29460.75</td>
+      <td>4068.50</td>
+      <td>1661.50</td>
+      <td>461.50</td>
+      <td>12198.75</td>
+      <td>0.00</td>
+      <td>131.00</td>
+      <td>10861.00</td>
+      <td>15407.75</td>
+      <td>2012.00</td>
+      <td>983.00</td>
+      <td>265.50</td>
+      <td>5266.50</td>
+      <td>43635.50</td>
+      <td>30975.25</td>
+      <td>3629.75</td>
+      <td>10350.00</td>
+      <td>16.38</td>
+      <td>0</td>
+      <td>-625</td>
+      <td>-15.35</td>
+      <td>2.825</td>
+      <td>64.7</td>
+      <td>7.24</td>
+      <td>20.354</td>
+      <td>100.0</td>
+      <td>100.0</td>
+      <td>5</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>9593.75</td>
+      <td>20609.0070</td>
+      <td>3941.85205</td>
+      <td>4.194757e+05</td>
+      <td>2.550378e+05</td>
+      <td>7116.920</td>
+      <td>15120.1128</td>
+      <td>6.116201e+05</td>
+      <td>54890.297520</td>
+      <td>7.613836e+14</td>
+      <td>18521.25</td>
+      <td>42.445371</td>
+      <td>0.000000</td>
+      <td>0.024917</td>
+      <td>10961.00</td>
+      <td>27.116589</td>
+      <td>9681.50</td>
+      <td>1514.50</td>
+      <td>315921.02</td>
+      <td>224260.81</td>
+      <td>1.085214e+06</td>
+      <td>57209.042600</td>
+      <td>1.293454e+12</td>
+      <td>7.613836e+14</td>
+      <td>4.767308e-12</td>
+    </tr>
+    <tr>
+      <th>2015-01-05 03:00:00</th>
+      <td>2</td>
+      <td>533.75</td>
+      <td>10601.75</td>
+      <td>0.0</td>
+      <td>43335.50</td>
+      <td>40404.25</td>
+      <td>29268.75</td>
+      <td>4067.00</td>
+      <td>1644.00</td>
+      <td>450.25</td>
+      <td>12312.75</td>
+      <td>0.00</td>
+      <td>131.00</td>
+      <td>10760.00</td>
+      <td>15528.75</td>
+      <td>2049.25</td>
+      <td>996.75</td>
+      <td>274.00</td>
+      <td>5612.25</td>
+      <td>43683.25</td>
+      <td>30920.25</td>
+      <td>3438.00</td>
+      <td>10439.00</td>
+      <td>17.38</td>
+      <td>0</td>
+      <td>-494</td>
+      <td>-14.54</td>
+      <td>2.575</td>
+      <td>64.7</td>
+      <td>7.24</td>
+      <td>20.354</td>
+      <td>100.0</td>
+      <td>100.0</td>
+      <td>5</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+      <td>7182.76</td>
+      <td>20793.6425</td>
+      <td>3975.44215</td>
+      <td>4.232338e+05</td>
+      <td>2.572111e+05</td>
+      <td>7216.470</td>
+      <td>15331.6098</td>
+      <td>6.164232e+05</td>
+      <td>55906.531905</td>
+      <td>7.855881e+14</td>
+      <td>18605.00</td>
+      <td>42.590696</td>
+      <td>0.000000</td>
+      <td>0.024200</td>
+      <td>11135.50</td>
+      <td>27.560220</td>
+      <td>10142.75</td>
+      <td>1651.50</td>
+      <td>316266.73</td>
+      <td>223862.61</td>
+      <td>1.095574e+06</td>
+      <td>58073.067775</td>
+      <td>1.350929e+12</td>
+      <td>7.855881e+14</td>
+      <td>4.376339e-12</td>
+    </tr>
+    <tr>
+      <th>2015-01-05 04:00:00</th>
+      <td>2</td>
+      <td>521.75</td>
+      <td>10809.75</td>
+      <td>0.0</td>
+      <td>44479.50</td>
+      <td>41348.25</td>
+      <td>30016.75</td>
+      <td>4052.00</td>
+      <td>1632.00</td>
+      <td>453.50</td>
+      <td>13093.50</td>
+      <td>0.00</td>
+      <td>131.00</td>
+      <td>10632.75</td>
+      <td>15449.25</td>
+      <td>2783.50</td>
+      <td>1044.75</td>
+      <td>5.25</td>
+      <td>6223.75</td>
+      <td>44969.25</td>
+      <td>31422.25</td>
+      <td>3785.00</td>
+      <td>10705.00</td>
+      <td>16.38</td>
+      <td>0</td>
+      <td>-1294</td>
+      <td>-61.14</td>
+      <td>2.375</td>
+      <td>64.7</td>
+      <td>7.24</td>
+      <td>20.354</td>
+      <td>100.0</td>
+      <td>100.0</td>
+      <td>5</td>
+      <td>1</td>
+      <td>4</td>
+      <td>0</td>
+      <td>79115.16</td>
+      <td>21415.9340</td>
+      <td>4046.54395</td>
+      <td>4.358999e+05</td>
+      <td>2.618114e+05</td>
+      <td>7563.990</td>
+      <td>16069.9266</td>
+      <td>6.132674e+05</td>
+      <td>75937.943910</td>
+      <td>8.632295e+14</td>
+      <td>19362.00</td>
+      <td>43.056088</td>
+      <td>0.000000</td>
+      <td>0.023422</td>
+      <td>11331.50</td>
+      <td>27.405029</td>
+      <td>10532.00</td>
+      <td>1405.50</td>
+      <td>325577.37</td>
+      <td>227497.09</td>
+      <td>1.129672e+06</td>
+      <td>72176.300050</td>
+      <td>1.934397e+12</td>
+      <td>8.632295e+14</td>
+      <td>4.384697e-12</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2022-04-28 20:00:00</th>
+      <td>5</td>
+      <td>1230.00</td>
+      <td>5514.75</td>
+      <td>252.0</td>
+      <td>45566.25</td>
+      <td>58524.25</td>
+      <td>51527.50</td>
+      <td>4814.00</td>
+      <td>1441.25</td>
+      <td>1352.00</td>
+      <td>4361.75</td>
+      <td>188.75</td>
+      <td>129.25</td>
+      <td>3958.75</td>
+      <td>13538.25</td>
+      <td>8488.50</td>
+      <td>7066.25</td>
+      <td>3515.25</td>
+      <td>1286.75</td>
+      <td>59913.50</td>
+      <td>54011.00</td>
+      <td>1.00</td>
+      <td>3470.25</td>
+      <td>268.91</td>
+      <td>414</td>
+      <td>0</td>
+      <td>412.93</td>
+      <td>11.325</td>
+      <td>286.5</td>
+      <td>85.04</td>
+      <td>85.040</td>
+      <td>108.2</td>
+      <td>116.6</td>
+      <td>118</td>
+      <td>4</td>
+      <td>20</td>
+      <td>0</td>
+      <td>170953.02</td>
+      <td>26974.0160</td>
+      <td>4288.86015</td>
+      <td>2.293870e+06</td>
+      <td>1.228758e+06</td>
+      <td>600913.900</td>
+      <td>841279.4600</td>
+      <td>2.297850e+06</td>
+      <td>984413.042700</td>
+      <td>1.693743e+18</td>
+      <td>12287.00</td>
+      <td>20.507899</td>
+      <td>0.015362</td>
+      <td>0.110035</td>
+      <td>6996.75</td>
+      <td>11.955301</td>
+      <td>-9772.75</td>
+      <td>2483.50</td>
+      <td>5095044.04</td>
+      <td>4593095.44</td>
+      <td>4.263969e+06</td>
+      <td>701852.379000</td>
+      <td>1.665343e+13</td>
+      <td>1.693743e+18</td>
+      <td>5.904082e-19</td>
+    </tr>
+    <tr>
+      <th>2022-04-28 21:00:00</th>
+      <td>5</td>
+      <td>1133.75</td>
+      <td>6178.00</td>
+      <td>0.0</td>
+      <td>43957.25</td>
+      <td>56366.25</td>
+      <td>49054.50</td>
+      <td>4778.75</td>
+      <td>1412.75</td>
+      <td>1362.50</td>
+      <td>5639.50</td>
+      <td>6.25</td>
+      <td>131.00</td>
+      <td>3962.00</td>
+      <td>13543.75</td>
+      <td>8457.25</td>
+      <td>6868.00</td>
+      <td>1715.00</td>
+      <td>1277.00</td>
+      <td>58205.25</td>
+      <td>51197.00</td>
+      <td>8.25</td>
+      <td>2767.00</td>
+      <td>253.56</td>
+      <td>136</td>
+      <td>-19</td>
+      <td>314.46</td>
+      <td>9.725</td>
+      <td>286.5</td>
+      <td>85.04</td>
+      <td>85.040</td>
+      <td>108.2</td>
+      <td>116.6</td>
+      <td>118</td>
+      <td>4</td>
+      <td>21</td>
+      <td>0</td>
+      <td>36791.82</td>
+      <td>26871.5625</td>
+      <td>4286.34155</td>
+      <td>2.285158e+06</td>
+      <td>1.228037e+06</td>
+      <td>584054.720</td>
+      <td>817676.6080</td>
+      <td>2.298784e+06</td>
+      <td>980788.973950</td>
+      <td>1.639008e+18</td>
+      <td>13330.75</td>
+      <td>22.903003</td>
+      <td>0.000469</td>
+      <td>0.102207</td>
+      <td>7311.75</td>
+      <td>12.971858</td>
+      <td>-9051.50</td>
+      <td>2142.50</td>
+      <td>4949774.46</td>
+      <td>4353792.88</td>
+      <td>4.180035e+06</td>
+      <td>699334.288000</td>
+      <td>1.801735e+13</td>
+      <td>1.639008e+18</td>
+      <td>5.033532e-18</td>
+    </tr>
+    <tr>
+      <th>2022-04-28 22:00:00</th>
+      <td>5</td>
+      <td>1017.25</td>
+      <td>6537.00</td>
+      <td>0.0</td>
+      <td>42921.75</td>
+      <td>53424.75</td>
+      <td>45870.50</td>
+      <td>4665.75</td>
+      <td>1409.00</td>
+      <td>1200.00</td>
+      <td>5966.00</td>
+      <td>5.00</td>
+      <td>132.25</td>
+      <td>3971.50</td>
+      <td>13571.75</td>
+      <td>8382.75</td>
+      <td>6700.75</td>
+      <td>548.50</td>
+      <td>1278.25</td>
+      <td>54820.75</td>
+      <td>47649.75</td>
+      <td>84.00</td>
+      <td>3110.50</td>
+      <td>222.78</td>
+      <td>555</td>
+      <td>0</td>
+      <td>304.52</td>
+      <td>8.675</td>
+      <td>286.5</td>
+      <td>85.04</td>
+      <td>85.040</td>
+      <td>108.2</td>
+      <td>116.6</td>
+      <td>118</td>
+      <td>4</td>
+      <td>22</td>
+      <td>0</td>
+      <td>169008.60</td>
+      <td>26767.1515</td>
+      <td>4283.90735</td>
+      <td>2.276279e+06</td>
+      <td>1.227339e+06</td>
+      <td>569831.780</td>
+      <td>797764.4920</td>
+      <td>2.303536e+06</td>
+      <td>972149.194050</td>
+      <td>1.591977e+18</td>
+      <td>13378.00</td>
+      <td>24.403169</td>
+      <td>0.000374</td>
+      <td>0.089700</td>
+      <td>7554.25</td>
+      <td>14.139982</td>
+      <td>-6989.25</td>
+      <td>1779.25</td>
+      <td>4661956.58</td>
+      <td>4052134.74</td>
+      <td>4.067591e+06</td>
+      <td>693348.846000</td>
+      <td>1.860339e+13</td>
+      <td>1.591977e+18</td>
+      <td>5.276458e-17</td>
+    </tr>
+    <tr>
+      <th>2022-04-28 23:00:00</th>
+      <td>5</td>
+      <td>916.00</td>
+      <td>6460.25</td>
+      <td>0.0</td>
+      <td>40476.75</td>
+      <td>49975.75</td>
+      <td>42599.50</td>
+      <td>4571.50</td>
+      <td>1448.25</td>
+      <td>973.25</td>
+      <td>5739.25</td>
+      <td>2.00</td>
+      <td>134.00</td>
+      <td>3974.50</td>
+      <td>13531.75</td>
+      <td>8347.75</td>
+      <td>5703.75</td>
+      <td>433.75</td>
+      <td>1278.75</td>
+      <td>50814.75</td>
+      <td>44100.25</td>
+      <td>114.50</td>
+      <td>3162.00</td>
+      <td>206.05</td>
+      <td>512</td>
+      <td>0</td>
+      <td>287.13</td>
+      <td>8.450</td>
+      <td>286.5</td>
+      <td>85.04</td>
+      <td>85.040</td>
+      <td>108.2</td>
+      <td>116.6</td>
+      <td>118</td>
+      <td>4</td>
+      <td>23</td>
+      <td>0</td>
+      <td>147010.56</td>
+      <td>26287.5815</td>
+      <td>4270.01735</td>
+      <td>2.235496e+06</td>
+      <td>1.223360e+06</td>
+      <td>485046.900</td>
+      <td>679065.6600</td>
+      <td>2.296747e+06</td>
+      <td>968090.237050</td>
+      <td>1.326514e+18</td>
+      <td>12868.25</td>
+      <td>25.323848</td>
+      <td>0.000155</td>
+      <td>0.075632</td>
+      <td>7376.25</td>
+      <td>14.759658</td>
+      <td>-4676.25</td>
+      <td>1500.75</td>
+      <td>4321286.34</td>
+      <td>3750285.26</td>
+      <td>3.923618e+06</td>
+      <td>690473.746000</td>
+      <td>1.631600e+13</td>
+      <td>1.326514e+18</td>
+      <td>8.631646e-17</td>
+    </tr>
+    <tr>
+      <th>2022-04-29 00:00:00</th>
+      <td>6</td>
+      <td>738.75</td>
+      <td>5106.25</td>
+      <td>0.0</td>
+      <td>38871.00</td>
+      <td>47267.75</td>
+      <td>41422.75</td>
+      <td>4439.75</td>
+      <td>1400.00</td>
+      <td>884.00</td>
+      <td>5160.50</td>
+      <td>2.00</td>
+      <td>139.25</td>
+      <td>3978.50</td>
+      <td>13346.75</td>
+      <td>8279.50</td>
+      <td>5255.25</td>
+      <td>213.50</td>
+      <td>1261.50</td>
+      <td>47446.50</td>
+      <td>41400.00</td>
+      <td>401.50</td>
+      <td>3642.50</td>
+      <td>203.15</td>
+      <td>250</td>
+      <td>0</td>
+      <td>274.04</td>
+      <td>8.025</td>
+      <td>281.9</td>
+      <td>83.30</td>
+      <td>83.300</td>
+      <td>108.2</td>
+      <td>116.6</td>
+      <td>119</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>68510.00</td>
+      <td>25823.5640</td>
+      <td>4217.27325</td>
+      <td>2.151103e+06</td>
+      <td>1.188849e+06</td>
+      <td>437762.325</td>
+      <td>612867.2550</td>
+      <td>2.223035e+06</td>
+      <td>941812.333440</td>
+      <td>1.119506e+18</td>
+      <td>12025.50</td>
+      <td>25.345389</td>
+      <td>0.000166</td>
+      <td>0.073510</td>
+      <td>5845.00</td>
+      <td>12.365725</td>
+      <td>-3086.00</td>
+      <td>-22.75</td>
+      <td>3952293.45</td>
+      <td>3448620.00</td>
+      <td>3.695230e+06</td>
+      <td>671054.171500</td>
+      <td>1.471879e+13</td>
+      <td>1.119506e+18</td>
+      <td>3.586404e-16</td>
+    </tr>
+  </tbody>
+</table>
+<p>64104 rows × 62 columns</p>
+</div></div></div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.%20Deskriptive%20Analyse.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">1. Deskriptive Analyse</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2.%20Ueberleitung.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">2. Modelle</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
