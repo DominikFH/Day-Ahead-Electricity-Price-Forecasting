@@ -56,11 +56,6 @@ pip install -r requirements.txt
 jupyter notebook
 ```
 
-5️⃣ Explore the documentation:
-```bash
-jupyter notebook
----
-
 ## 📊 Results
 
 - Evaluation metrics: RMSE, MAE, MAPE
