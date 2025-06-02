@@ -87,5 +87,4 @@ This project is licensed under the MIT License.
 ## 📬 Contact
 
 - **Author**: DominikFH  
-- GitHub: [DominikFH](https://github.com/DominikFH)  
-- Feel free to open an [issue](https://github.com/DominikFH/Day-Ahead-Electricity-Price-Forecasting/issues) or contribute via pull request!
+- GitHub: [DominikFH](https://github.com/DominikFH)
