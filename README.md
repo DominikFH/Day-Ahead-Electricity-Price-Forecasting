@@ -22,7 +22,7 @@ This project aims to forecast **day-ahead electricity prices** using historical 
 ```
 .
 ├── data/               # Raw and processed datasets (excluded from git)
-├── jupyter_book/       # Documentation in german language
+├── docs/               # Documentation in german language
 ├── notebooks/          # Jupyter notebooks for training and forecasting
 ├── src/                # Python scripts for data prep
 ├── requirements.txt    # Python dependencies
